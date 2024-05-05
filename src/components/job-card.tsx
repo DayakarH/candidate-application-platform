@@ -22,7 +22,6 @@ const JobCard = forwardRef<HTMLDivElement, JobCardProps>(
           }
           title={
             <Typography
-              className='title'
               color='text.secondary'
               className='capitalize'
             >
