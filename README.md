@@ -1,30 +1,28 @@
-# React + TypeScript + Vite
+# Candidate Application Platform
+A candidate application platform that allows users to view job
+listings, **filter jobs based on various criteria**, with **infinite scroll** for a
+seamless browsing experience.
+Brief description of the project and its purpose.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Table of Contents
 
-Currently, two official plugins are available:
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Installation
 
-## Expanding the ESLint configuration
+Step-by-step instructions on how to install and set up the project locally. For example:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+1. Clone the repository: `git clone git@github.com:DayakarH/candidate-application-platform.git`
+2. Navigate to the project directory: `cd candidate-application-platform`
+3. Install dependencies: `npm i`
+4. Create a `.env` file in the root directory and copy the contents of `.env.example` file into the `.env` file and assign the `API_URL` provided in the assignment PDF to `VITE_API_URL`
 
-- Configure the top-level `parserOptions` property like this:
+## Usage
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+To start the local development server, run:
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+```bash
+npm run dev
