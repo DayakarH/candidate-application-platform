@@ -94,7 +94,7 @@ export default function Filters() {
         <InputLabel id='experience-label'>Experience</InputLabel>
         <Select
           labelId='experience-label'
-          value={minExp}
+          value={minExp ? String(minExp) : ''}
           label='Experience'
           onChange={evt =>
             evt.target.value
@@ -143,7 +143,7 @@ export default function Filters() {
         <Select
           labelId='min-base-pay-label'
           label='Min Base Pay'
-          value={String(minBasePay)}
+          value={minBasePay ? String(minBasePay) : ''}
           onChange={(evt: SelectChangeEvent) =>
             evt.target.value
               ? handleFilterChange('minBasePay', Number(evt.target.value))
