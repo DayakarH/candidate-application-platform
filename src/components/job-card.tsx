@@ -13,7 +13,7 @@ type JobCardProps = { jobDetails: JobDetails };
 const JobCard = forwardRef<HTMLDivElement, JobCardProps>(
   ({ jobDetails }, ref) => {
     return (
-      <Card sx={{ borderRadius: '1rem' }} ref={ref}>
+      <Card sx={{ borderRadius: '1rem' }} ref={ref} component={"article"}>
         <CardContent>
           <Chip variant='outlined' label='Posted 3 days ago' />
           <Typography>{jobDetails.companyName}</Typography>

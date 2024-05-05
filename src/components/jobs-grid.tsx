@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import type { ReactNode } from 'react';
 
-const JobsGrid = styled.div`
+const JobsGrid = styled.section`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   grid-auto-rows: minmax(350px, auto);
