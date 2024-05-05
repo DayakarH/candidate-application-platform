@@ -1,10 +1,11 @@
+import { LIMIT } from './constants';
 import type { JobsAPIResponse } from './types';
 
 const API_URL = import.meta.env.VITE_API_URL as string;
 
 export async function fetchJobsFromAPI(
   offset = 0,
-  limit = 12
+  limit = LIMIT
 ): Promise<JobsAPIResponse> {
   const headers = new Headers();
   headers.append('Content-Type', 'application/json');
