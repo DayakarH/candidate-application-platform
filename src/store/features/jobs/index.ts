@@ -5,29 +5,14 @@ type JobsList = {
   jobsList: Array<JobDetails>;
   totalCount: number;
   numOfLoadedJobs: number;
-  filters: {
-    minExp: number;
-    companyName: string;
-    location: string;
-    employmentType: string;
-    role: string;
-    minBasePay: number;
-  };
   isLoading: boolean;
   error: string | null;
 };
+
 const initialState: JobsList = {
   jobsList: [],
   totalCount: 0,
   numOfLoadedJobs: 0,
-  filters: {
-    minExp: 0,
-    companyName: '',
-    location: '',
-    employmentType: '',
-    role: '',
-    minBasePay: 0,
-  },
   isLoading: false,
   error: null,
 };
@@ -61,7 +46,11 @@ const jobsSlice = createSlice({
   },
 });
 
-export const { fetchJobsRequest, fetchJobsSuccess, fetchJobsFailure, fetchMoreJobs } =
-  jobsSlice.actions;
+export const {
+  fetchJobsRequest,
+  fetchJobsSuccess,
+  fetchJobsFailure,
+  fetchMoreJobs,
+} = jobsSlice.actions;
 
 export default jobsSlice.reducer;
