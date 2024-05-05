@@ -7,6 +7,12 @@ const JobsGrid = styled.section`
   grid-auto-rows: minmax(350px, auto);
   gap: 1rem;
   padding-block: 2rem;
+  margin-block-end: 2rem;
+
+  &:has(article:hover) article:not(:hover) {
+    scale: 0.95;
+    opacity: 0.7;
+  }
 `;
 
 export default function JobsContainer({ children }: { children: ReactNode }) {
