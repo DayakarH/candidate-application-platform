@@ -19,7 +19,7 @@ export type JobsAPIResponse = {
 };
 
 export type Filters = {
-  location: string;
+  location: Array<string>;
   minExp: number | null;
   minBasePay: number | null;
   roles: Array<string>;
