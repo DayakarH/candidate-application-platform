@@ -67,3 +67,7 @@ body {
   width: min(1200px, 90%);
   margin-inline: auto;
 }
+
+.capitalize{
+  text-transform: capitalize !important;
+}
