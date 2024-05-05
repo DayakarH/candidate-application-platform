@@ -2,13 +2,16 @@ import type { JobsAPIResponse } from './types';
 
 const API_URL = import.meta.env.VITE_API_URL as string;
 
-export async function fetchJobsFromAPI(): Promise<JobsAPIResponse> {
+export async function fetchJobsFromAPI(
+  offset = 0,
+  limit = 12
+): Promise<JobsAPIResponse> {
   const headers = new Headers();
   headers.append('Content-Type', 'application/json');
 
   const body = JSON.stringify({
-    limit: 12,
-    offset: 0,
+    limit,
+    offset,
   });
 
   const requestOptions: RequestInit = {
