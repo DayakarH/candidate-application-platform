@@ -1,4 +1,5 @@
 import Header from '@components/layout/header';
+import { JobCardSkeletons } from '@components/loading-skeletons';
 import { useEffect, type RefObject } from 'react';
 import JobCard from './components/job-card';
 import JobsContainer from './components/jobs-grid';
@@ -46,6 +47,8 @@ export default function App() {
     <>
       <Header />
       <JobsContainer>
+        {/* loading skeletons for initial load */}
+        {isLoading && numOfLoadedJobs === 0 ? <JobCardSkeletons /> : null}
         {jobsList.length > 0 &&
           jobsList.map((job, idx) => {
             if (idx === jobsList.length - 1) {
@@ -59,6 +62,8 @@ export default function App() {
             }
             return <JobCard jobDetails={job} key={job.jdUid} />;
           })}
+        {/* loading skeletons for loading jobs through infinite scroll */}
+        {isLoading ? <JobCardSkeletons /> : null}
       </JobsContainer>
     </>
   );
