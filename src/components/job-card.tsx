@@ -13,12 +13,22 @@ type JobCardProps = { jobDetails: JobDetails };
 
 const JobCard = forwardRef<HTMLDivElement, JobCardProps>(
   ({ jobDetails }, ref) => {
-  const [open, setOpen] = useState<boolean>(false);
+    const [open, setOpen] = useState<boolean>(false);
 
     return (
       <>
         <JobDialog open={open} setOpen={setOpen} jobDetails={jobDetails} />
-        <Card sx={{ borderRadius: '1rem' }} ref={ref} component={'article'}>
+        <Card
+          ref={ref}
+          component={'article'}
+          sx={{
+            transition: 'scale 350ms ease-out, opacity 350ms ease-in-out',
+            borderRadius: '1rem',
+            '&:hover': {
+              scale: 1.05,
+            },
+          }}
+        >
           <CardHeader
             avatar={
               <Avatar aria-label='logo' src={jobDetails.logoUrl}>
@@ -26,17 +36,17 @@ const JobCard = forwardRef<HTMLDivElement, JobCardProps>(
               </Avatar>
             }
             title={
-              <Typography color='text.secondary' className='capitalize'>
+              <Typography
+                color='text.secondary'
+                className='capitalize'
+                variant='overline'
+              >
                 {jobDetails.companyName}
               </Typography>
             }
             subheader={
               <>
-                <Typography
-                  variant='body2'
-                  color='text.secondary'
-                  className='capitalize'
-                >
+                <Typography variant='body1' className='capitalize'>
                   {jobDetails.jobRole}
                 </Typography>
                 <Typography
@@ -50,8 +60,18 @@ const JobCard = forwardRef<HTMLDivElement, JobCardProps>(
             }
             className={'capitalize'}
           />
-          <CardContent sx={{ justifyContent: 'flex-start', textAlign: 'left' }}>
-            <Typography variant='body2' className={styles.salaryRange}>
+          <CardContent
+            sx={{
+              justifyContent: 'flex-start',
+              textAlign: 'left',
+              paddingBlock: 0,
+            }}
+          >
+            <Typography
+              variant='overline'
+              className={styles.salaryRange}
+              color='text.secondary'
+            >
               Estimated Salary: {jobDetails?.minJdSalary ?? 0}-
               {jobDetails?.maxJdSalary ?? 'N/A'} ✅
             </Typography>
