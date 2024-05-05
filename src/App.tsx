@@ -1,6 +1,7 @@
+import Filters from '@components/filters';
 import Header from '@components/layout/header';
 import { JobCardSkeletons } from '@components/loading-skeletons';
-import { useEffect, type RefObject } from 'react';
+import { useEffect, useState, type RefObject } from 'react';
 import JobCard from './components/job-card';
 import JobsContainer from './components/jobs-grid';
 import { useAppDispatch, useAppSelector } from './hooks';
@@ -18,8 +19,13 @@ export default function App() {
   const { jobsList, isLoading, numOfLoadedJobs } = useAppSelector(
     state => state.jobs
   );
+  const { companyName, location, minBasePay, minExp, roles } = useAppSelector(
+    state => state.filters
+  );
+  const [filteredJobs, setFilteredJobs] = useState(jobsList);
   const { customRef, entry } = useIntersectionObserver({ threshold: 0.8 });
 
+  useEffect(() => setFilteredJobs(jobsList), [jobsList]);
   useEffect(() => {
     dispatch(fetchJobsRequest());
     fetchJobsFromAPI()
@@ -43,15 +49,48 @@ export default function App() {
         });
     }
   }, [entry, dispatch]);
+
+  useEffect(() => {
+    let jobs = [...jobsList];
+    if (companyName) {
+      jobs = jobs.filter(job =>
+        job.companyName.toLowerCase().includes(companyName.toLowerCase())
+      );
+    }
+    if (location.length > 0) {
+      jobs = jobs.filter(job => {
+        return location.some(location => {
+          if (location.toLowerCase() === 'remote') {
+            return job.location.toLowerCase().includes(location.toLowerCase());
+          } else if (location.toLowerCase() === 'hybrid') {
+            return true;
+          } else {
+            return job.location.toLowerCase() !== 'remote';
+          }
+        });
+      });
+    }
+    if (roles.length > 0) {
+      jobs = jobs.filter(job => roles.includes(job.jobRole));
+    }
+    if (minExp) {
+      jobs = jobs.filter(job => job.minExp >= minExp);
+    }
+    if (minBasePay) {
+      jobs = jobs.filter(job => job.minJdSalary >= minBasePay);
+    }
+    setFilteredJobs(jobs);
+  }, [companyName, location, minBasePay, minExp, roles, jobsList]);
   return (
     <>
       <Header />
+      <Filters />
       <JobsContainer>
         {/* loading skeletons for initial load */}
         {isLoading && numOfLoadedJobs === 0 ? <JobCardSkeletons /> : null}
-        {jobsList.length > 0 &&
-          jobsList.map((job, idx) => {
-            if (idx === jobsList.length - 1) {
+        {filteredJobs.length > 0 &&
+          filteredJobs.map((job, idx) => {
+            if (idx === filteredJobs.length - 1) {
               return (
                 <JobCard
                   jobDetails={job}
