@@ -1,19 +1,23 @@
 import type { Filters } from '@lib/types';
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: Filters = {
   minExp: null,
   companyName: '',
-  location: '',
+  location: [],
   roles: [],
   minBasePay: null,
 };
+
+type FilterPayload = Partial<Filters>;
 
 const filtersSlice = createSlice({
   name: 'filters',
   initialState,
   reducers: {
-    applyFilters: (state, action) => {},
+    applyFilters: (state, action: PayloadAction<FilterPayload>) => {
+      return { ...state, ...action.payload };
+    },
   },
 });
 
