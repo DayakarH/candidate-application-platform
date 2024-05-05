@@ -51,10 +51,17 @@ const jobsSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload.message;
     },
+    fetchMoreJobs: (state, action: PayloadAction<JobsAPIResponse>) => {
+      state.jobsList = [...state.jobsList, ...action.payload.jdList];
+      state.totalCount = action.payload.totalCount;
+      state.numOfLoadedJobs += action.payload.jdList.length;
+      state.isLoading = false;
+      state.error = null;
+    },
   },
 });
 
-export const { fetchJobsRequest, fetchJobsSuccess, fetchJobsFailure } =
+export const { fetchJobsRequest, fetchJobsSuccess, fetchJobsFailure, fetchMoreJobs } =
   jobsSlice.actions;
 
 export default jobsSlice.reducer;
