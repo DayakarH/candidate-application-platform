@@ -17,3 +17,11 @@ export type JobsAPIResponse = {
   jdList: Array<JobDetails>;
   totalCount: number;
 };
+
+export type Filters = {
+  location: string;
+  minExp: number | null;
+  minBasePay: number | null;
+  roles: Array<string>;
+  companyName: string;
+};
