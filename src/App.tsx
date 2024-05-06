@@ -3,17 +3,18 @@ import EndOfResults from '@components/features/jobs-catalog/end-of-results';
 import Filters from '@components/features/jobs-catalog/filters';
 import JobCard from '@components/features/jobs-catalog/job-card';
 import { JobCardSkeletons } from '@components/features/jobs-catalog/loading-skeletons';
+import Footer from '@components/layout/footer';
 import Header from '@components/layout/header';
 import { useAppDispatch, useAppSelector } from '@hooks/redux-hooks';
-import { useEffect, useMemo, useState, type RefObject } from 'react';
-import { useIntersectionObserver } from './hooks/use-intersection-observer';
-import { fetchJobsFromAPI } from './lib/utils';
 import {
   fetchJobsFailure,
   fetchJobsRequest,
   fetchJobsSuccess,
-} from './store/features/jobs';
-import Footer from '@components/layout/footer';
+  fetchMoreJobs,
+} from '@store/features/jobs';
+import { useEffect, useMemo, useState, type RefObject } from 'react';
+import { useIntersectionObserver } from './hooks/use-intersection-observer';
+import { fetchJobsFromAPI } from './lib/utils';
 
 export default function App() {
   const dispatch = useAppDispatch();
@@ -58,14 +59,14 @@ export default function App() {
 
   useEffect(() => {
     if (entry && entry.isIntersecting && !FETCHED_ALL_JOBS) {
-      // dispatch(fetchJobsRequest());
-      // fetchJobsFromAPI(numOfLoadedJobs)
-      //   .then(response => {
-      //     dispatch(fetchMoreJobs(response));
-      //   })
-      //   .catch(error => {
-      //     dispatch(fetchJobsFailure(error));
-      //   });
+      dispatch(fetchJobsRequest());
+      fetchJobsFromAPI(numOfLoadedJobs)
+        .then(response => {
+          dispatch(fetchMoreJobs(response));
+        })
+        .catch(error => {
+          dispatch(fetchJobsFailure(error));
+        });
     }
   }, [entry, dispatch]);
 
