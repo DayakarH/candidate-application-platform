@@ -11,9 +11,9 @@ import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { forwardRef, useState } from 'react';
-import type { JobDetails } from '../lib/types';
-import styles from './job-card.module.css';
+import type { JobDetails } from '../../../lib/types';
 import JobDialog from './job-dialog';
+import styles from './job-card.module.css';
 
 type JobCardProps = { jobDetails: JobDetails };
 
