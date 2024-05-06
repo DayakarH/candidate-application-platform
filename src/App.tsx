@@ -2,7 +2,7 @@ import EndOfResults from '@components/end-of-results';
 import Filters from '@components/filters';
 import Header from '@components/layout/header';
 import { JobCardSkeletons } from '@components/loading-skeletons';
-import { useEffect, useState, type RefObject } from 'react';
+import { useEffect, useMemo, useState, type RefObject } from 'react';
 import JobCard from './components/job-card';
 import JobsContainer from './components/jobs-grid';
 import { useAppDispatch, useAppSelector } from './hooks';
@@ -31,6 +31,11 @@ export default function App() {
   const [filteredJobs, setFilteredJobs] = useState(jobsList);
   const { customRef, entry } = useIntersectionObserver({ threshold: 0.8 });
 
+  const FETCHED_ALL_JOBS = useMemo(
+    () => numOfLoadedJobs === totalCount,
+    [numOfLoadedJobs, totalCount]
+  );
+
   useEffect(() => {
     setFilteredJobs(jobsList);
     setDynamicFilters({
@@ -52,7 +57,7 @@ export default function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (entry && entry.isIntersecting) {
+    if (entry && entry.isIntersecting && !FETCHED_ALL_JOBS) {
       dispatch(fetchJobsRequest());
       fetchJobsFromAPI(numOfLoadedJobs)
         .then(response => {
@@ -123,7 +128,7 @@ export default function App() {
         {/* loading skeletons for loading jobs through infinite scroll */}
         {isLoading ? <JobCardSkeletons /> : null}
       </JobsContainer>
-      {numOfLoadedJobs === totalCount ? <EndOfResults /> : null}
+      {FETCHED_ALL_JOBS ? <EndOfResults /> : null}
     </>
   );
 }
