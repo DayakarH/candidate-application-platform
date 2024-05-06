@@ -90,7 +90,6 @@ export default function App() {
     if (minBasePay) {
       jobs = jobs.filter(job => job.minJdSalary >= minBasePay);
     }
-    console.log(jobs);
     setFilteredJobs(jobs);
   }, [
     companyName,
