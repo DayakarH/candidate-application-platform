@@ -21,7 +21,15 @@ export default function EndOfResults() {
           opacity: 0.6,
         }}
       />
-      <Typography component={'span'}>End of Results</Typography>
+      <Typography
+        component={'span'}
+        color={'secondary'}
+        variant='overline'
+        fontWeight={500}
+        fontSize={'1.25rem'}
+      >
+        End of Results
+      </Typography>
       <Divider
         textAlign='center'
         component={'span'}
