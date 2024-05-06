@@ -1,8 +1,11 @@
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import ElectricBoltIcon from '@mui/icons-material/ElectricBolt';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
+import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { forwardRef, useState } from 'react';
 import type { JobDetails } from '../lib/types';
@@ -71,14 +74,17 @@ const JobCard = forwardRef<HTMLDivElement, JobCardProps>(
               paddingBlock: 0,
             }}
           >
-            <Typography
-              variant='overline'
-              className={styles.salaryRange}
-              color='text.secondary'
-            >
-              Estimated Salary: {jobDetails?.minJdSalary ?? 0}-
-              {jobDetails?.maxJdSalary ?? 'N/A'} ✅
-            </Typography>
+            <Stack direction={'row'} sx={{ alignItems: 'center' }} spacing={1}>
+              <Typography
+                variant='overline'
+                className={styles.salaryRange}
+                color='text.secondary'
+              >
+                Estimated Salary: {jobDetails?.minJdSalary ?? 0}-
+                {jobDetails?.maxJdSalary ?? 'N/A'}
+              </Typography>
+              <CheckBoxIcon color='success' />
+            </Stack>
             <div className={styles.description}>
               <Typography variant='body2'>
                 {jobDetails?.jobDetailsFromCompany}
@@ -103,33 +109,37 @@ const JobCard = forwardRef<HTMLDivElement, JobCardProps>(
               </Typography>
             </div>
 
-            <Button
-              variant='contained'
-              sx={{
-                width: '100%',
-                backgroundColor: 'rgb(85, 239, 196)',
-                color: 'rgb(0, 0, 0)',
-                fontWeight: '500',
-                padding: '8px 18px',
-              }}
-              className='capitalize'
-            >
-              ⚡ Easy Apply
-            </Button>
-            <Button
-              variant='contained'
-              sx={{
-                marginTop: '8px',
-                width: '100%',
-                backgroundColor: 'blue',
-                color: 'white',
-                fontWeight: '500',
-                padding: '8px 18px',
-              }}
-              className='capitalize'
-            >
-              Unlock Referral Asks
-            </Button>
+            <Stack direction={'column'} spacing={1}>
+              <Button
+                variant='contained'
+                sx={{
+                  width: '100%',
+                  backgroundColor: 'rgb(85, 239, 196)',
+                  color: 'rgb(0, 0, 0)',
+                  fontWeight: '500',
+                  padding: '8px 18px',
+                  gap: '0.5rem',
+                  alignItems: 'center',
+                }}
+                className='capitalize'
+              >
+                <ElectricBoltIcon color='warning'/> <span>Easy Apply</span>
+              </Button>
+              <Button
+                variant='contained'
+                sx={{
+                  width: '100%',
+                  marginLeft: '0 !important',
+                  backgroundColor: 'blue',
+                  color: 'white',
+                  fontWeight: '500',
+                  padding: '8px 18px',
+                }}
+                className='capitalize'
+              >
+                Unlock Referral Asks
+              </Button>
+            </Stack>
           </CardContent>
         </Card>
       </>
