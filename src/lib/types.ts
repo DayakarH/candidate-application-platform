@@ -11,6 +11,7 @@ export type JobDetails = {
   jobRole: string;
   companyName: string;
   logoUrl: string;
+  addedOn: Date | null;
 };
 
 export type JobsAPIResponse = {

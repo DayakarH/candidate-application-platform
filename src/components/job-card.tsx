@@ -1,10 +1,13 @@
+import { formatTimeAgo } from '@lib/utils';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import ElectricBoltIcon from '@mui/icons-material/ElectricBolt';
+import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
+import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { forwardRef, useState } from 'react';
@@ -32,48 +35,59 @@ const JobCard = forwardRef<HTMLDivElement, JobCardProps>(
             },
           }}
         >
-          <CardHeader
-            avatar={
-              <Avatar
-                aria-label='logo'
-                src={jobDetails.logoUrl}
-                alt={`${jobDetails.companyName} Logo`}
-              >
-                {jobDetails.companyName.charAt(0).toUpperCase()}
-              </Avatar>
-            }
-            title={
-              <Typography
-                color='text.secondary'
-                className='capitalize'
-                variant='overline'
-              >
-                {jobDetails.companyName}
-              </Typography>
-            }
-            subheader={
-              <>
-                <Typography variant='body1' className='capitalize'>
-                  {jobDetails.jobRole}
-                </Typography>
-                <Typography
-                  variant='body2'
-                  color='text.secondary'
-                  className='location '
-                >
-                  {jobDetails.location}
-                </Typography>
-              </>
-            }
-            className={'capitalize'}
-          />
           <CardContent
             sx={{
               justifyContent: 'flex-start',
               textAlign: 'left',
-              paddingBlock: 0,
             }}
           >
+            <Chip
+              icon={<HourglassBottomIcon />}
+              label={
+                jobDetails.addedOn
+                  ? formatTimeAgo(new Date(jobDetails.addedOn), 'Posted')
+                  : 'Posted 3 days ago'
+              }
+              variant='outlined'
+              color='info'
+            />
+            <CardHeader
+              avatar={
+                <Avatar
+                  aria-label='logo'
+                  src={jobDetails.logoUrl}
+                  alt={`${jobDetails.companyName} Logo`}
+                >
+                  {jobDetails.companyName.charAt(0).toUpperCase()}
+                </Avatar>
+              }
+              title={
+                <Typography
+                  color='text.secondary'
+                  className='capitalize'
+                  variant='overline'
+                >
+                  {jobDetails.companyName}
+                </Typography>
+              }
+              subheader={
+                <>
+                  <Typography variant='body1' className='capitalize'>
+                    {jobDetails.jobRole}
+                  </Typography>
+                  <Typography
+                    variant='body2'
+                    color='text.secondary'
+                    className='location '
+                  >
+                    {jobDetails.location}
+                  </Typography>
+                </>
+              }
+              className={'capitalize'}
+              sx={{ paddingInline: 0 }}
+            />
+
             <Stack direction={'row'} sx={{ alignItems: 'center' }} spacing={1}>
               <Typography
                 variant='overline'
@@ -123,7 +137,7 @@ const JobCard = forwardRef<HTMLDivElement, JobCardProps>(
                 }}
                 className='capitalize'
               >
-                <ElectricBoltIcon color='warning'/> <span>Easy Apply</span>
+                <ElectricBoltIcon color='warning' /> <span>Easy Apply</span>
               </Button>
               <Button
                 variant='contained'
