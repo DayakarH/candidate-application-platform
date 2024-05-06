@@ -35,11 +35,10 @@ const StyledFiltersContainer = styled.div`
   justify-content: space-between;
   justify-items: space-between;
   gap: 1rem;
-  margin-block-end: 0.75rem;
+  margin-block: 1.5rem 0.75rem;
 
   & > * {
     flex: 1;
-    /* flex-basis: 250px; */
   }
 `;
 

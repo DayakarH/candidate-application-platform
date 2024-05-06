@@ -12,8 +12,8 @@ import {
   fetchJobsFailure,
   fetchJobsRequest,
   fetchJobsSuccess,
-  fetchMoreJobs,
 } from './store/features/jobs';
+import Footer from '@components/layout/footer';
 
 export default function App() {
   const dispatch = useAppDispatch();
@@ -58,14 +58,14 @@ export default function App() {
 
   useEffect(() => {
     if (entry && entry.isIntersecting && !FETCHED_ALL_JOBS) {
-      dispatch(fetchJobsRequest());
-      fetchJobsFromAPI(numOfLoadedJobs)
-        .then(response => {
-          dispatch(fetchMoreJobs(response));
-        })
-        .catch(error => {
-          dispatch(fetchJobsFailure(error));
-        });
+      // dispatch(fetchJobsRequest());
+      // fetchJobsFromAPI(numOfLoadedJobs)
+      //   .then(response => {
+      //     dispatch(fetchMoreJobs(response));
+      //   })
+      //   .catch(error => {
+      //     dispatch(fetchJobsFailure(error));
+      //   });
     }
   }, [entry, dispatch]);
 
@@ -129,6 +129,7 @@ export default function App() {
         {isLoading ? <JobCardSkeletons /> : null}
       </JobsContainer>
       {FETCHED_ALL_JOBS ? <EndOfResults /> : null}
+      <Footer />
     </>
   );
 }

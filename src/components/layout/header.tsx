@@ -2,11 +2,12 @@ import styled from '@emotion/styled';
 
 const StyledHeader = styled.header`
   padding-block: 1rem;
-
+  border-block-end: 1px solid var(--color-subtle-border);
+  box-shadow: var(--shadow-elevation-low);
   a {
     text-decoration: none;
     color: unset;
-    font-size:1.5rem;
+    font-size: 1.5rem;
     font-weight: 500;
   }
 `;

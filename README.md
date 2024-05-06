@@ -10,6 +10,7 @@ Brief description of the project and its purpose.
 - [Installation](#installation)
 - [Usage](#usage)
 - [Tech Stack](#tech-stack)
+- [Folder Structure](#folder-structure)
 - [Contributing](#contributing)
 
 ## Installation
