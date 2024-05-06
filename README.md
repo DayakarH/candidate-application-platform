@@ -11,7 +11,6 @@ Brief description of the project and its purpose.
 - [Usage](#usage)
 - [Tech Stack](#tech-stack)
 - [Folder Structure](#folder-structure)
-- [Contributing](#contributing)
 
 ## Installation
 
@@ -24,17 +23,20 @@ Step-by-step instructions on how to install and set up the project locally. For 
 
 ## Usage
 
-To start the local development server, run:
+- To start the local development server, run:
 
-```bash
-npm run dev
-```
+    ```bash
+    npm run dev
+    ```
+- After the local development is up and running, open [this](http://localhost:5173/) link to view the instance in your browser.
+- As soon as the app starts, the first 12 jobs from the API response are fetched, stored in redux state and displayed. Scrolling to the last job card dispatches an action that fetches the next set of 12 jobs.
+- If any filters are selected and the newly loaded 12 jobs don't match the the active filters, no new job cards will be displayed. The user would need to scroll back up and then down again to the last visible job to trigger the intersection observer and load the next set of unfiltered jobs. (I'm currently working on fix this without causing any other breaking changes).
 
 ## Tech Stack
 
 - ReactJS - UI Library
 - Redux-Toolkit - For global synchronous state management
-- TypeScript - For readability, maintainability and scalability
+- TypeScript - For readability, maintainability, scalability and overall a better DX
 - Material UI - Component Library
 - CSS Modules - For scoped styling
 
