@@ -20,7 +20,7 @@ export default function Footer() {
         className='container'
       >
         <p>
-          <Typography>
+          <Typography component={"span"}>
             ©{new Date().getFullYear()}{' '}
             <a href='https://github.com/DayakarH'>Dayakar</a>
           </Typography>
