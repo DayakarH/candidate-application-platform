@@ -1,31 +1,5 @@
 export const LIMIT = 12;
 
-export const ROLES_OPTIONS = [
-  {
-    name: 'Frontend',
-    value: 'frontend',
-  },
-  {
-    name: 'Backend',
-    value: 'backend',
-  },
-  {
-    name: 'Fullstack',
-    value: 'fullstack',
-  },
-  {
-    name: 'iOS',
-    value: 'ios',
-  },
-  {
-    name: 'Android',
-    value: 'android',
-  },
-  {
-    name: 'Flutter',
-    value: 'flutter',
-  },
-];
 
 export const EXPERIENCE_OPTIONS = [
   {
@@ -81,10 +55,6 @@ export const LOCATION_OPTIONS = [
   {
     name: 'On Site',
     value: 'on-Site',
-  },
-  {
-    name: 'Hybrid',
-    value: 'hybrid',
   },
 ];
 
