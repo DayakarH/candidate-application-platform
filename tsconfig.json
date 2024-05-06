@@ -17,7 +17,8 @@
     "paths": {
       "@components/*": ["src/components/*"],
       "@store/*": ["src/store/*"],
-      "@lib/*": ["src/lib/*"]
+      "@lib/*": ["src/lib/*"],
+      "@hooks/*": ["src/hooks/*"]
     },
     /* Linting */
     "strict": true,

@@ -21,6 +21,10 @@ export default defineConfig({
         find: '@lib',
         replacement: path.resolve(__dirname, 'src/lib'),
       },
+      {
+        find: '@hooks',
+        replacement: path.resolve(__dirname, 'src/hooks'),
+      },
     ],
   },
 });

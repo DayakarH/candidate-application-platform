@@ -2,10 +2,10 @@ import EndOfResults from '@components/end-of-results';
 import Filters from '@components/filters';
 import Header from '@components/layout/header';
 import { JobCardSkeletons } from '@components/loading-skeletons';
+import { useAppDispatch, useAppSelector } from '@hooks/redux-hooks';
 import { useEffect, useMemo, useState, type RefObject } from 'react';
 import JobCard from './components/job-card';
 import JobsContainer from './components/jobs-grid';
-import { useAppDispatch, useAppSelector } from './hooks';
 import { useIntersectionObserver } from './hooks/use-intersection-observer';
 import { fetchJobsFromAPI } from './lib/utils';
 import {

@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useAppDispatch, useAppSelector } from '@hooks/redux-hooks';
 import {
   EXPERIENCE_OPTIONS,
   LOCATION_OPTIONS,
@@ -16,7 +17,6 @@ import Select, { type SelectChangeEvent } from '@mui/material/Select';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import { applyFilters, resetFilters } from '@store/features/filters';
-import { useAppDispatch, useAppSelector } from 'src/hooks';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
