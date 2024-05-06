@@ -34,9 +34,9 @@ export default function App() {
   useEffect(() => {
     setFilteredJobs(jobsList);
     setDynamicFilters({
-      location: Array.from(new Set(jobsList.map(job => job.location.toLowerCase()))).filter(
-        location => location !== 'remote'
-      ),
+      location: Array.from(
+        new Set(jobsList.map(job => job.location.toLowerCase()))
+      ).filter(location => location !== 'remote'),
       role: Array.from(new Set(jobsList.map(job => job.jobRole))),
     });
   }, [jobsList]);
@@ -90,8 +90,17 @@ export default function App() {
     if (minBasePay) {
       jobs = jobs.filter(job => job.minJdSalary >= minBasePay);
     }
+    console.log(jobs);
     setFilteredJobs(jobs);
-  }, [companyName, location, minBasePay, minExp, roles, jobsList]);
+  }, [
+    companyName,
+    location,
+    minBasePay,
+    minExp,
+    roles,
+    remoteOrOnSite,
+    jobsList,
+  ]);
   return (
     <>
       <Header />
