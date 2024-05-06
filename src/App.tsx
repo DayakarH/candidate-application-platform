@@ -5,7 +5,10 @@ import JobCard from '@components/features/jobs-catalog/job-card';
 import { JobCardSkeletons } from '@components/features/jobs-catalog/loading-skeletons';
 import Footer from '@components/layout/footer';
 import Header from '@components/layout/header';
+import styled from '@emotion/styled';
 import { useAppDispatch, useAppSelector } from '@hooks/redux-hooks';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import {
   fetchJobsFailure,
   fetchJobsRequest,
@@ -16,11 +19,15 @@ import { useEffect, useMemo, useState, type RefObject } from 'react';
 import { useIntersectionObserver } from './hooks/use-intersection-observer';
 import { fetchJobsFromAPI } from './lib/utils';
 
+const StyledApp = styled.div`
+  min-height: 100vh;
+  grid-template-rows: auto 1fr auto;
+`;
+
 export default function App() {
   const dispatch = useAppDispatch();
-  const { jobsList, isLoading, numOfLoadedJobs, totalCount } = useAppSelector(
-    state => state.jobs
-  );
+  const { jobsList, isLoading, numOfLoadedJobs, totalCount, error } =
+    useAppSelector(state => state.jobs);
   const { companyName, location, minBasePay, minExp, roles, remoteOrOnSite } =
     useAppSelector(state => state.filters);
   const [dynamicFilters, setDynamicFilters] = useState<
@@ -107,30 +114,45 @@ export default function App() {
     jobsList,
   ]);
   return (
-    <>
+    <StyledApp>
       <Header />
-      <Filters dynamicFilters={dynamicFilters} />
-      <JobsContainer>
-        {/* loading skeletons for initial load */}
-        {isLoading && numOfLoadedJobs === 0 ? <JobCardSkeletons /> : null}
-        {filteredJobs.length > 0 &&
-          filteredJobs.map((job, idx) => {
-            if (idx === filteredJobs.length - 1) {
-              return (
-                <JobCard
-                  jobDetails={job}
-                  key={job.jdUid}
-                  ref={customRef as unknown as RefObject<HTMLDivElement>}
-                />
-              );
-            }
-            return <JobCard jobDetails={job} key={job.jdUid} />;
-          })}
-        {/* loading skeletons for loading jobs through infinite scroll */}
-        {isLoading ? <JobCardSkeletons /> : null}
-      </JobsContainer>
-      {FETCHED_ALL_JOBS ? <EndOfResults /> : null}
+      <main>
+        <Filters dynamicFilters={dynamicFilters} />
+        <JobsContainer>
+          {error ? (
+            <Box sx={{ gridColumn: '1/-1', placeSelf: 'center' }}>
+              <Typography
+                component={'p'}
+                fontWeight={500}
+                color={'error'}
+                fontSize={'1.5rem'}
+              >
+                {error}
+              </Typography>
+            </Box>
+          ) : null}
+          {/* loading skeletons for initial load */}
+          {isLoading && numOfLoadedJobs === 0 ? <JobCardSkeletons /> : null}
+          {!error &&
+            filteredJobs.length > 0 &&
+            filteredJobs.map((job, idx) => {
+              if (idx === filteredJobs.length - 1) {
+                return (
+                  <JobCard
+                    jobDetails={job}
+                    key={job.jdUid}
+                    ref={customRef as unknown as RefObject<HTMLDivElement>}
+                  />
+                );
+              }
+              return <JobCard jobDetails={job} key={job.jdUid} />;
+            })}
+          {/* loading skeletons for loading jobs through infinite scroll */}
+          {isLoading ? <JobCardSkeletons /> : null}
+        </JobsContainer>
+        {!error && FETCHED_ALL_JOBS ? <EndOfResults /> : null}
+      </main>
       <Footer />
-    </>
+    </StyledApp>
   );
 }
