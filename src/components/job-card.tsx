@@ -31,7 +31,11 @@ const JobCard = forwardRef<HTMLDivElement, JobCardProps>(
         >
           <CardHeader
             avatar={
-              <Avatar aria-label='logo' src={jobDetails.logoUrl}>
+              <Avatar
+                aria-label='logo'
+                src={jobDetails.logoUrl}
+                alt={`${jobDetails.companyName} Logo`}
+              >
                 {jobDetails.companyName.charAt(0).toUpperCase()}
               </Avatar>
             }
