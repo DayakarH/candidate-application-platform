@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 
 const JobsGrid = styled.section`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   grid-auto-rows: minmax(350px, auto);
   gap: 1rem;
   padding-block: 2rem;
