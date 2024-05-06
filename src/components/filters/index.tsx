@@ -3,7 +3,6 @@ import {
   EXPERIENCE_OPTIONS,
   LOCATION_OPTIONS,
   MIN_BASE_PAY_OPTIONS,
-  ROLES_OPTIONS,
 } from '@lib/constants';
 import type { Filters } from '@lib/types';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -43,10 +42,13 @@ const StyledFiltersContainer = styled.div`
     /* flex-basis: 250px; */
   }
 `;
-export default function Filters() {
-  const { companyName, location, minBasePay, minExp, roles } = useAppSelector(
-    state => state.filters
-  );
+
+type FiltersProps = {
+  dynamicFilters: Record<'role' | 'location', string[]>;
+};
+export default function Filters({ dynamicFilters }: FiltersProps) {
+  const { companyName, location, minBasePay, minExp, roles, remoteOrOnSite } =
+    useAppSelector(state => state.filters);
   const dispatch = useAppDispatch();
   const areAnyFiltersSelected = !!(
     companyName.length > 0 ||
@@ -96,9 +98,9 @@ export default function Filters() {
             )}
             MenuProps={MenuProps}
           >
-            {ROLES_OPTIONS.map(role => (
-              <MenuItem key={role.value} value={role.value}>
-                {role.name}
+            {dynamicFilters.role.map(role => (
+              <MenuItem key={role} value={role} className='capitalize'>
+                {role}
               </MenuItem>
             ))}
           </Select>
@@ -123,12 +125,11 @@ export default function Filters() {
             ))}
           </Select>
         </FormControl>
-
         <FormControl>
           <InputLabel id='location-label'>Location</InputLabel>
           <Select
             labelId='location-label'
-            label='Location'
+            label='location'
             placeholder='Location'
             multiple
             value={location}
@@ -142,6 +143,25 @@ export default function Filters() {
                 ))}
               </Box>
             )}
+            MenuProps={MenuProps}
+          >
+            {dynamicFilters.location.map(location => (
+              <MenuItem key={location} value={location} className='capitalize'>
+                {location}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl>
+          <InputLabel id='remote-label'>Remote/On-Site</InputLabel>
+          <Select
+            labelId='remote-label'
+            label='remote'
+            placeholder='remote'
+            value={remoteOrOnSite ?? ''}
+            onChange={(evt: SelectChangeEvent) =>
+              handleFilterChange('remoteOrOnSite', evt.target.value)
+            }
             MenuProps={MenuProps}
           >
             {LOCATION_OPTIONS.map(location => (

@@ -21,6 +21,7 @@ export type JobsAPIResponse = {
 
 export type Filters = {
   location: Array<string>;
+  remoteOrOnSite: string | null;
   minExp: number | null;
   minBasePay: number | null;
   roles: Array<string>;

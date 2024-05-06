@@ -3,6 +3,7 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: Filters = {
   minExp: null,
+  remoteOrOnSite: null,
   companyName: '',
   location: [],
   roles: [],

@@ -1,3 +1,4 @@
+import EndOfResults from '@components/end-of-results';
 import Filters from '@components/filters';
 import Header from '@components/layout/header';
 import { JobCardSkeletons } from '@components/loading-skeletons';
@@ -16,16 +17,29 @@ import {
 
 export default function App() {
   const dispatch = useAppDispatch();
-  const { jobsList, isLoading, numOfLoadedJobs } = useAppSelector(
+  const { jobsList, isLoading, numOfLoadedJobs, totalCount } = useAppSelector(
     state => state.jobs
   );
-  const { companyName, location, minBasePay, minExp, roles } = useAppSelector(
-    state => state.filters
-  );
+  const { companyName, location, minBasePay, minExp, roles, remoteOrOnSite } =
+    useAppSelector(state => state.filters);
+  const [dynamicFilters, setDynamicFilters] = useState<
+    Record<'location' | 'role', Array<string>>
+  >({
+    location: [],
+    role: [],
+  });
   const [filteredJobs, setFilteredJobs] = useState(jobsList);
   const { customRef, entry } = useIntersectionObserver({ threshold: 0.8 });
 
-  useEffect(() => setFilteredJobs(jobsList), [jobsList]);
+  useEffect(() => {
+    setFilteredJobs(jobsList);
+    setDynamicFilters({
+      location: Array.from(new Set(jobsList.map(job => job.location.toLowerCase()))).filter(
+        location => location !== 'remote'
+      ),
+      role: Array.from(new Set(jobsList.map(job => job.jobRole))),
+    });
+  }, [jobsList]);
   useEffect(() => {
     dispatch(fetchJobsRequest());
     fetchJobsFromAPI()
@@ -57,18 +71,15 @@ export default function App() {
         job.companyName.toLowerCase().includes(companyName.toLowerCase())
       );
     }
+    if (!!remoteOrOnSite) {
+      if (remoteOrOnSite === 'remote') {
+        jobs = jobs.filter(job => job.location.toLowerCase() === 'remote');
+      } else {
+        jobs = jobs.filter(job => job.location.toLowerCase() !== 'remote');
+      }
+    }
     if (location.length > 0) {
-      jobs = jobs.filter(job => {
-        return location.some(location => {
-          if (location.toLowerCase() === 'remote') {
-            return job.location.toLowerCase().includes(location.toLowerCase());
-          } else if (location.toLowerCase() === 'hybrid') {
-            return true;
-          } else {
-            return job.location.toLowerCase() !== 'remote';
-          }
-        });
-      });
+      jobs = jobs.filter(job => location.includes(job.location.toLowerCase()));
     }
     if (roles.length > 0) {
       jobs = jobs.filter(job => roles.includes(job.jobRole));
@@ -84,7 +95,7 @@ export default function App() {
   return (
     <>
       <Header />
-      <Filters />
+      <Filters dynamicFilters={dynamicFilters} />
       <JobsContainer>
         {/* loading skeletons for initial load */}
         {isLoading && numOfLoadedJobs === 0 ? <JobCardSkeletons /> : null}
@@ -104,6 +115,7 @@ export default function App() {
         {/* loading skeletons for loading jobs through infinite scroll */}
         {isLoading ? <JobCardSkeletons /> : null}
       </JobsContainer>
+      {numOfLoadedJobs === totalCount ? <EndOfResults /> : null}
     </>
   );
 }
