@@ -1,4 +1,5 @@
 import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 import styled from '@emotion/styled';
 
 const StyledFooter = styled.footer`
@@ -19,8 +20,10 @@ export default function Footer() {
         className='container'
       >
         <p>
-          ©{new Date().getFullYear()}{' '}
-          <a href='https://github.com/DayakarH'>Dayakar</a>
+          <Typography>
+            ©{new Date().getFullYear()}{' '}
+            <a href='https://github.com/DayakarH'>Dayakar</a>
+          </Typography>
         </p>
       </Stack>
     </StyledFooter>

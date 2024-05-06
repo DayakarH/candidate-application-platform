@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import Typography from '@mui/material/Typography';
 
 const StyledHeader = styled.header`
   padding-block: 1rem;
@@ -16,7 +17,7 @@ export default function Header() {
   return (
     <StyledHeader>
       <div className='container'>
-        <a href='/'>Candidate Application Platform</a>
+        <a href='/'><Typography>Candidate Application Platform</Typography></a>
       </div>
     </StyledHeader>
   );
