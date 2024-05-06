@@ -6,14 +6,16 @@ import {
   ROLES_OPTIONS,
 } from '@lib/constants';
 import type { Filters } from '@lib/types';
+import ClearIcon from '@mui/icons-material/Clear';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { type SelectChangeEvent } from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
-import { applyFilters } from '@store/features/filters';
+import { applyFilters, resetFilters } from '@store/features/filters';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 
 const ITEM_HEIGHT = 48;
@@ -44,6 +46,13 @@ export default function Filters() {
     state => state.filters
   );
   const dispatch = useAppDispatch();
+  const areAnyFiltersSelected = !!(
+    companyName.length > 0 ||
+    location.length > 0 ||
+    !!minBasePay ||
+    !!minExp ||
+    roles.length
+  );
 
   const handleFilterChange = <T extends keyof Filters>(
     filter: T,
@@ -51,6 +60,8 @@ export default function Filters() {
   ) => {
     dispatch(applyFilters({ [filter]: value }));
   };
+
+  const handleClearFilters = () => dispatch(resetFilters());
   return (
     <StyledFiltersContainer className='container'>
       <TextField
@@ -157,6 +168,15 @@ export default function Filters() {
           ))}
         </Select>
       </FormControl>
+      {areAnyFiltersSelected ? (
+        <Button
+          variant='outlined'
+          startIcon={<ClearIcon />}
+          onClick={handleClearFilters}
+        >
+          Clear All Filters
+        </Button>
+      ) : null}
     </StyledFiltersContainer>
   );
 }
