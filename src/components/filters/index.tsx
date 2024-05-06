@@ -55,6 +55,7 @@ export default function Filters({ dynamicFilters }: FiltersProps) {
     location.length > 0 ||
     !!minBasePay ||
     !!minExp ||
+    !!remoteOrOnSite ||
     roles.length
   );
 
