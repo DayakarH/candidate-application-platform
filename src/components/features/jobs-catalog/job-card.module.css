@@ -11,7 +11,7 @@
 }
 
 .salaryRange {
-  font-size: 14px !important;
+  font-size: var(--14px) !important;
   font-weight: 600;
   margin: 10px 0 8px !important;
   letter-spacing: 2px !important;
@@ -28,7 +28,7 @@
   top: -5px;
 }
 .infoContainer > h3 {
-  font-size: 13px;
+  font-size: var(--13px);
   font-weight: 600;
   letter-spacing: 1px;
   margin-bottom: 3px;
@@ -37,13 +37,13 @@
   padding: 0;
 }
 .infoContainer > h1 {
-  font-size: 20px;
+  font-size: var(--20px);
   margin: 0;
   padding: 0;
 }
 
 .infoContainer > h2 {
-  font-size: 14px;
+  font-size: var(--14px);
   line-height: 1.5;
   margin: 0;
   padding: 0;
